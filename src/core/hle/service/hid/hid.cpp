@@ -10,6 +10,7 @@
 #include "core/3ds.h"
 #include "core/core.h"
 #include "core/core_timing.h"
+#include "core/frontend/emu_window.h"
 #include "core/frontend/input.h"
 #include "core/hle/ipc.h"
 #include "core/hle/kernel/event.h"
@@ -19,6 +20,8 @@
 #include "core/hle/service/hid/hid_spvr.h"
 #include "core/hle/service/hid/hid_user.h"
 #include "core/hle/service/service.h"
+#include "core/hle/shared_page.h"
+#include "video_core/video_core.h"
 
 namespace Service {
 namespace HID {
@@ -110,6 +113,7 @@ static void UnloadInputDevices() {
 }
 
 static void UpdatePadCallback(u64 userdata, int cycles_late) {
+    SharedPage::shared_page.sliderstate_3d = VideoCore::g_emu_window->GetDepthSliderValue();
     SharedMem* mem = reinterpret_cast<SharedMem*>(shared_mem->GetPointer());
 
     if (is_device_reload_pending.exchange(false))

@@ -12,6 +12,7 @@
 #include "core/core.h"
 #include "core/hle/service/am/am.h"
 #include "network/network.h"
+#include "core/frontend/emu_window.h"
 #include "ui_main.h"
 
 class AboutDialog;
@@ -34,6 +35,7 @@ class QFutureWatcher;
 class QProgressBar;
 class RegistersWidget;
 class Updater;
+class StereoscopicControllerWidget;
 class WaitTreeWidget;
 
 // Multiplayer forward declarations
@@ -182,6 +184,8 @@ private slots:
     void OnUpdateFound(bool found, bool error);
     void OnCheckForUpdates();
     void OnOpenUpdater();
+    void OnDepthChanged(float v);
+    void OnStereoscopeModeChanged(EmuWindow::StereoscopicMode);
 
 private:
     void UpdateStatusBar();
@@ -208,6 +212,7 @@ private:
     std::unique_ptr<EmuThread> emu_thread;
 
     // Debugger panes
+    StereoscopicControllerWidget* stereoscopicControllerWidget;
     ProfilerWidget* profilerWidget;
     MicroProfileDialog* microProfileDialog;
     RegistersWidget* registersWidget;
