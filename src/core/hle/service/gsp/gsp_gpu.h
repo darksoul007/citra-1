@@ -8,12 +8,12 @@
 #include <string>
 #include "common/bit_field.h"
 #include "common/common_types.h"
+#include "core/hle/kernel/event.h"
 #include "core/hle/kernel/hle_ipc.h"
 #include "core/hle/result.h"
 #include "core/hle/service/service.h"
 
 namespace Kernel {
-class Event;
 class SharedMemory;
 } // namespace Kernel
 
@@ -180,8 +180,6 @@ struct CommandBuffer {
 static_assert(sizeof(CommandBuffer) == 0x200, "CommandBuffer struct has incorrect size");
 
 struct SessionData : public Kernel::SessionRequestHandler::SessionDataBase {
-    ~SessionData();
-
     /// Event triggered when GSP interrupt has been signalled
     Kernel::SharedPtr<Kernel::Event> interrupt_event;
     /// Thread index into interrupt relay queue

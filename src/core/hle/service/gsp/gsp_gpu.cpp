@@ -9,7 +9,6 @@
 #include "core/core.h"
 #include "core/hle/ipc.h"
 #include "core/hle/ipc_helpers.h"
-#include "core/hle/kernel/event.h"
 #include "core/hle/kernel/handle_table.h"
 #include "core/hle/kernel/shared_memory.h"
 #include "core/hle/result.h"
@@ -451,7 +450,7 @@ static void ExecuteCommand(const Command& command, u32 thread_id) {
                                              command.dma_request.size, Memory::FlushMode::Flush);
         Memory::RasterizerFlushVirtualRegion(command.dma_request.dest_address,
                                              command.dma_request.size,
-                                             Memory::FlushMode::Invalidate);
+                                             Memory::FlushMode::FlushAndInvalidate);
 
         // TODO(Subv): These memory accesses should not go through the application's memory mapping.
         // They should go through the GSP module's memory mapping.
@@ -753,8 +752,5 @@ GSP_GPU::GSP_GPU() : ServiceFramework("gsp::Gpu", 2) {
 
     first_initialization = true;
 };
-
-SessionData::~SessionData() = default;
-
 } // namespace GSP
 } // namespace Service
