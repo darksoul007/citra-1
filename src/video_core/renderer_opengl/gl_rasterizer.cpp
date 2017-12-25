@@ -1074,8 +1074,9 @@ bool RasterizerOpenGL::AccelerateTextureCopy(const GPU::Regs::DisplayTransferCon
     SurfaceParams dst_params = *src_surface;
     dst_params.addr = config.GetPhysicalOutputAddress();
     dst_params.width = src_rect.GetWidth() / src_surface->res_scale;
-    dst_params.stride = dst_params.width + src_surface->PixelsInBytes(
-                                               src_surface->is_tiled ? output_gap / 8 : output_gap);
+    dst_params.stride =
+        dst_params.width +
+        src_surface->PixelsInBytes(src_surface->is_tiled ? output_gap / 8 : output_gap);
     dst_params.height = src_rect.GetHeight() / src_surface->res_scale;
     dst_params.res_scale = src_surface->res_scale;
     dst_params.UpdateParams();
@@ -1149,8 +1150,8 @@ void RasterizerOpenGL::SamplerInfo::Create() {
     wrap_s = wrap_t = TextureConfig::Repeat;
     border_color = 0;
 
-    glSamplerParameteri(sampler.handle, GL_TEXTURE_MIN_FILTER,
-                        GL_LINEAR); // default is GL_LINEAR_MIPMAP_LINEAR
+    // default is GL_LINEAR_MIPMAP_LINEAR
+    glSamplerParameteri(sampler.handle, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     // Other attributes have correct defaults
 }
 
