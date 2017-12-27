@@ -56,6 +56,20 @@ void Init() {
         Kernel::Event::Create(Kernel::ResetType::OneShot, "CECD::change_state_event");
 }
 
+void OpenAndWrite(Service::Interface* self) {
+    u32* cmd_buff = Kernel::GetCommandBuffer();
+
+    cmd_buff[1] = -1;
+    LOG_WARNING(Service_CECD, "(STUBBED) called");
+}
+
+void OpenAndRead(Service::Interface* self) {
+    u32* cmd_buff = Kernel::GetCommandBuffer();
+
+    cmd_buff[1] = -1;
+    LOG_WARNING(Service_CECD, "(STUBBED) called");
+}
+
 void Shutdown() {
     cecinfo_event = nullptr;
     change_state_event = nullptr;
