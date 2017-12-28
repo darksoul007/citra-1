@@ -122,7 +122,7 @@ u64 GetTicks() {
 }
 
 void AddTicks(u64 ticks) {
-    downcount -= ticks;
+    downcount -= 16000;
 }
 
 u64 GetIdleTicks() {
